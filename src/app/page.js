@@ -1,5 +1,19 @@
+"use client"
+
+import TechCard from "@/components/TechCard";
+import { userTech } from "@/context/TechContext"
+
 export default function Page() {
-  return (
-    <div>Main page</div>
-  )
+
+    const { techs } = userTech();
+    console.log(techs);
+    return (
+        <div>
+            {
+                techs.map((tech) => (
+                    <TechCard key={tech.id} tech={tech} />
+                ))
+            }
+        </div>
+    )
 }
