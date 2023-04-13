@@ -1,11 +1,11 @@
 "use client"
 
 import TechCard from "@/components/TechCard";
-import { userTech } from "@/context/TechContext"
+import { useTech } from "@/context/TechContext"
 
 export default function Page() {
 
-    const { techs } = userTech();
+    const { techs } = useTech();
     console.log(techs);
     return (
         <div>

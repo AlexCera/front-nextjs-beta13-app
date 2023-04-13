@@ -1,16 +1,17 @@
 "use client"
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
+import { v4 as uuid } from "uuid";
 
 const TechContext = createContext([]);
 
-export const userTech = () => {
+export const useTech = () => {
     const context = useContext(TechContext)
     if (!context) throw new Error("useTech must be used within a provider")
     return context
 }
 
 export const TechProvider = ({ children }) => {
-    const techs = [
+    const [techs, setTechs] = useState([
         {
             id: 1,
             name: "Rust",
@@ -26,10 +27,25 @@ export const TechProvider = ({ children }) => {
             name: "TypeScript",
             siteUrl: "https://www.typescriptlang.org/"
         },
-    ];
+
+    ])
+
+    const createTech = (name, siteUrl) =>
+        setTechs([
+            ...techs,
+            {
+                name,
+                siteUrl,
+                id: uuid()
+            },
+        ])
 
     return (
-        <TechContext.Provider value={{ techs }}>
+        <TechContext.Provider 
+            value={{ 
+                techs,
+                createTech
+            }}>
             {children}
         </TechContext.Provider>
     )
