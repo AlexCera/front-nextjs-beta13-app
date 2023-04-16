@@ -40,11 +40,15 @@ export const TechProvider = ({ children }) => {
             },
         ])
 
+    const deleteTech = (id) =>
+        setTechs([...techs.filter((tech) => tech.id !== id)])
+
     return (
-        <TechContext.Provider 
-            value={{ 
+        <TechContext.Provider
+            value={{
                 techs,
-                createTech
+                createTech,
+                deleteTech,
             }}>
             {children}
         </TechContext.Provider>

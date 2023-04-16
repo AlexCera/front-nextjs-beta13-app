@@ -1,7 +1,10 @@
+import { useTech } from "@/context/TechContext";
 import { useRouter } from "next/navigation";
 
 export default function TechCard({ tech }) {
     const router = useRouter();
+
+    const { deleteTech } = useTech();
 
     return (
         <div
@@ -17,7 +20,11 @@ export default function TechCard({ tech }) {
             <h2>{tech.name}</h2>
             <p>Conoce más: <a target="_blank" href={tech.siteUrl}>Sitio oficial</a></p>
 
-            <button>Delete</button>
+            <button onClick={(e) => {
+                e.stopPropagation()
+                const accept = window.confirm("Are you sure to eliminate this technology")
+                if (accept) deleteTech(tech.id)
+            }}>Delete</button>
         </div>
     )
 }
