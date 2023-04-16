@@ -1,7 +1,3 @@
-export default function Page({ params }) {
-    return (
-        <div>
-            <h3>Form to edit {params.id}</h3>
-        </div>
-    )
-}  
+import NewPageForm from '@/app/new/page.js'
+
+export default NewPageForm
