@@ -9,7 +9,7 @@ export default function Page({ params }) {
         name: "",
         siteUrl: ""
     });
-    const { techs, createTech } = useTech();
+    const { techs, createTech, updateTech } = useTech();
     const router = useRouter();
 
     const handleChange = (e) => {
@@ -20,6 +20,7 @@ export default function Page({ params }) {
         e.preventDefault()
         if (params.id) {
             /* update */
+            updateTech(params.id, tech)
         } else {
             /* create */
             createTech(tech.name, tech.siteUrl)

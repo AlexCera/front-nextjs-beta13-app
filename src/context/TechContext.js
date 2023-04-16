@@ -13,19 +13,9 @@ export const useTech = () => {
 export const TechProvider = ({ children }) => {
     const [techs, setTechs] = useState([
         {
-            id: 1,
-            name: "Rust",
-            siteUrl: "https://www.rust-lang.org/es"
-        },
-        {
-            id: 2,
-            name: "Python",
-            siteUrl: "https://www.python.org/"
-        },
-        {
-            id: 3,
-            name: "TypeScript",
-            siteUrl: "https://www.typescriptlang.org/"
+            id: uuid(),
+            name: "NextJS",
+            siteUrl: "https://nextjs.org/"
         },
 
     ])
@@ -43,12 +33,16 @@ export const TechProvider = ({ children }) => {
     const deleteTech = (id) =>
         setTechs([...techs.filter((tech) => tech.id !== id)])
 
+    const updateTech = (id, data) =>
+        setTechs([...techs.map(tech => tech.id === id ? { ...tech, ...data } : tech)])
+
     return (
         <TechContext.Provider
             value={{
                 techs,
                 createTech,
                 deleteTech,
+                updateTech,
             }}>
             {children}
         </TechContext.Provider>
