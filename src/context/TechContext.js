@@ -1,5 +1,6 @@
 "use client"
-import { createContext, useContext, useState } from "react";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { createContext, useContext, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 
 const TechContext = createContext([]);
@@ -11,14 +12,9 @@ export const useTech = () => {
 }
 
 export const TechProvider = ({ children }) => {
-    const [techs, setTechs] = useState([
-        {
-            id: uuid(),
-            name: "NextJS",
-            siteUrl: "https://nextjs.org/"
-        },
+    useLocalStorage
 
-    ])
+    const [techs, setTechs] = useLocalStorage('techs', [])
 
     const createTech = (name, siteUrl) =>
         setTechs([
