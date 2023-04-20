@@ -2,50 +2,48 @@
 import { useTech } from "@/context/TechContext";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 
 export default function Page({ params }) {
 
-    const [tech, setTech] = useState({
-        name: "",
-        siteUrl: ""
-    });
     const { techs, createTech, updateTech } = useTech();
     const router = useRouter();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
-    const handleChange = (e) => {
-        setTech({ ...tech, [e.target.name]: e.target.value })
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
+    const onSubmit = handleSubmit((data) => {
         if (params.id) {
-            /* update */
-            updateTech(params.id, tech)
+            updateTech(params.id, data)
         } else {
-            /* create */
-            createTech(tech.name, tech.siteUrl)
+            createTech(data.name, data.siteUrl)
         }
         router.push("/")
-    }
+    })
 
     useEffect(() => {
         if (params.id) {
             const techFound = techs.find(tech => tech.id === params.id)
             console.log("--", techFound);
-            if (techFound) setTech({
-                name: techFound.name,
-                siteUrl: techFound.siteUrl
-            })
+            if (techFound) {
+                setValue("name", techFound.name)
+                setValue("siteUrl", techFound.siteUrl)
+            }
         }
     }, [])
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input name="name" placeholder="Write your favorite technology"
-                onChange={handleChange} value={tech.name} />
-            <textarea name="siteUrl" placeholder="Share the official page with us"
-                onChange={handleChange} value={tech.siteUrl} />
+        <form onSubmit={onSubmit}>
+            <input placeholder="Write your favorite technology"
+                {...register("name", { required: true })} />
+            {errors.name && (
+                <span>This field is required</span>
+            )}
+
+            <textarea placeholder="Share the official page with us"
+                {...register("siteUrl", { required: true })} />
+            {errors.siteUrl && (
+                <span>This field is required</span>
+            )}
             <button>Save</button>
         </form>
     )
-}  
+}
