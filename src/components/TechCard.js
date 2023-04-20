@@ -1,5 +1,6 @@
 import { useTech } from "@/context/TechContext";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 export default function TechCard({ tech }) {
     const router = useRouter();
@@ -23,7 +24,10 @@ export default function TechCard({ tech }) {
             <button onClick={(e) => {
                 e.stopPropagation()
                 const accept = window.confirm("Are you sure to eliminate this technology")
-                if (accept) deleteTech(tech.id)
+                if (accept) {
+                    deleteTech(tech.id)
+                    toast.success("Your technology was successfully removed.")
+                }
             }}>Delete</button>
         </div>
     )

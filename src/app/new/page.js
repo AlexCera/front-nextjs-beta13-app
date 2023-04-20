@@ -3,6 +3,7 @@ import { useTech } from "@/context/TechContext";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
 export default function Page({ params }) {
 
@@ -13,8 +14,10 @@ export default function Page({ params }) {
     const onSubmit = handleSubmit((data) => {
         if (params.id) {
             updateTech(params.id, data)
+            toast.success("Your technology was successfully updated")
         } else {
             createTech(data.name, data.siteUrl)
+            toast.success("Your technology was successfully added")
         }
         router.push("/")
     })
