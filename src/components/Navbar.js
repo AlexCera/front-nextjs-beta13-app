@@ -6,13 +6,15 @@ export default function Navbar() {
     const router = useRouter();
 
     return (
-        <header>
+        <header className="flex justify-between items-center bg-gray-800 px-28 py-3">
             <Link href={"/"}>
-                <h2>Home</h2>
+                <h2 className="font-bold text-3xl text-green-400">Home</h2>
             </Link>
 
             <div>
-                <button onClick={() => router.push("/new")}>
+                <button onClick={() => router.push("/new")}
+                    className="bg-green-400 hover:bg-green-300 px-5 py-2 text-gray-100 
+                    font-bold rounded inline-flex items-center">
                     Add your favorite tech
                 </button>
             </div>

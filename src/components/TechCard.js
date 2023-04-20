@@ -9,18 +9,14 @@ export default function TechCard({ tech }) {
 
     return (
         <div
-            style={{
-                borderRadius: "20px",
-                background: "#6c8685",
-                color: "white",
-                padding: ".5rem 1rem",
-                marginBottom: ".5rem"
-            }}
+            className="bg-gray-500 hover:bg-slate-400 cursor-pointer px-20 py-5 m-2 flex flex-col items-center rounded-lg"
             onClick={() => router.push(`/edit/${tech.id}`)}
         >
-            <h2>{tech.name}</h2>
-            <p>Conoce más: <a target="_blank" href={tech.siteUrl}>Sitio oficial</a></p>
+            <div className="flex flex-col items-center">
+                <h2 className="text-2xl"><q>{tech.name}</q></h2>
+                <p className="text-gray-300">Conoce más: <a target="_blank" href={tech.siteUrl}>Sitio oficial</a></p>
 
+            </div>
             <button onClick={(e) => {
                 e.stopPropagation()
                 const accept = window.confirm("Are you sure to eliminate this technology")
@@ -28,7 +24,7 @@ export default function TechCard({ tech }) {
                     deleteTech(tech.id)
                     toast.success("Your technology was successfully removed.")
                 }
-            }}>Delete</button>
+            }} className="rounded-2xl bg-red-500 hover:bg-red-400 w-20 py-1 mt-4 ">Delete</button>
         </div>
     )
 }

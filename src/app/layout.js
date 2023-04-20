@@ -2,6 +2,7 @@ import { TechProvider } from '@/context/TechContext'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import { Toaster } from './toaster'
+import { Layout } from '@/components/Layout'
 
 
 export const metadata = {
@@ -15,8 +16,10 @@ export default function RootLayout({ children }) {
       <TechProvider>
         <body>
           <Navbar />
-          {children}
-          <Toaster />
+          <Layout>
+            {children}
+            <Toaster />
+          </Layout>
         </body>
       </TechProvider>
     </html>
